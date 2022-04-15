@@ -3,9 +3,8 @@
 namespace Tomorrowxxy\AppleAds;
 
 use Tomorrowxxy\AppleAds\Exceptions\Exception;
-use Tomorrowxxy\AppleAds\Exceptions\InvalidMethodException;
-use Tomorrowxxy\AppleAds\Requests\OAuth;
 use Tomorrowxxy\AppleAds\Requests\SearchAdsInterface;
+use Tomorrowxxy\AppleAds\Support\Config;
 
 /**
  * Class AppleAds
@@ -14,11 +13,14 @@ use Tomorrowxxy\AppleAds\Requests\SearchAdsInterface;
  */
 class AppleAds
 {
-    public $config = [];
+    /**
+     * @var Config
+     */
+    protected $config;
 
     public function __construct($config)
     {
-        $this->config = $config;
+        $this->config = new Config($config);
     }
 
     /**
@@ -31,7 +33,7 @@ class AppleAds
     {
         $application = $this->registerProvider($method);
 
-        if (empty($this->config['access_token'])) {
+        if (is_null($this->config->get('access_token'))) {
             $this->getAccessToken();
         }
 
@@ -52,26 +54,28 @@ class AppleAds
             throw new Exception(sprintf('AppleAds: Wrong request method "%s".', $method));
         }
 
-        $provider = new $provider($this->config);
+        $provider = new $provider();
         if (!($provider instanceof SearchAdsInterface)) {
             throw new Exception(sprintf('AppleAds: Class "%s" must implements interface %s.', $method, SearchAdsInterface::class));
         }
+
+        $provider->setConfig($this->config);
 
         return $provider;
     }
 
     public function setAccessToken($access_token)
     {
-        $this->config['access_token'] = $access_token;
+        $this->config->set('access_token', $access_token);
     }
 
     /**
-     * @return array|\Psr\Http\Message\ResponseInterface|string
+     * @return array
      * @throws Exception
      */
-    public function getAccessToken()
+    public function getAccessToken(): array
     {
-        $result = (new OAuth())->createAccessToken($this->config);
+        $result = $this->registerProvider('OAuth')->createAccessToken();
 
         if (!\is_array($result) || empty($result['access_token'])) {
             throw new Exception('AppleAds: Failed to get Access Token');

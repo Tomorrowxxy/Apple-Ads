@@ -2,6 +2,8 @@
 
 namespace Tomorrowxxy\AppleAds\Requests;
 
+use Tomorrowxxy\AppleAds\Support\Config;
+
 /**
  * Interface SearchAdsInterface
  * @package Tomorrowxxy\AppleAds\Requests
@@ -10,4 +12,5 @@ namespace Tomorrowxxy\AppleAds\Requests;
  */
 interface SearchAdsInterface
 {
+    public function setConfig(Config $config);
 }

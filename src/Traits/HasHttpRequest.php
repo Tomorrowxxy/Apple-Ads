@@ -92,9 +92,8 @@ trait HasHttpRequest
     protected function getBaseOptions()
     {
         $options = \method_exists($this, 'getGuzzleOptions') ? $this->getGuzzleOptions() : [];
-
         return \array_merge($options, [
-            'timeout'  => method_exists($this, 'getTimeout') ? $this->getTimeout() : 10.0,
+            'timeout' => \method_exists($this, 'getTimeout') ? $this->getTimeout() : 10.0,
         ]);
     }
 

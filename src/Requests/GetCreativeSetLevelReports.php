@@ -9,7 +9,7 @@ use Tomorrowxxy\AppleAds\Traits\HasHttpRequest;
  * @package Tomorrowxxy\AppleAds\Requests
  * @see     https://developer.apple.com/documentation/apple_search_ads/get_creative_set-level_reports
  */
-class GetCreativeSetLevelReports implements SearchAdsInterface
+class GetCreativeSetLevelReports extends SearchAds
 {
     use HasHttpRequest;
 

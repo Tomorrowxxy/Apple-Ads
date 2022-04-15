@@ -9,7 +9,7 @@ use Tomorrowxxy\AppleAds\Traits\HasHttpRequest;
  * @package Tomorrowxxy\AppleAds\Requests
  * @see     https://developer.apple.com/documentation/apple_search_ads/get_keyword-level_within_an_ad_group_reports
  */
-class GetKeywordLevelWithinAnAdGroupReports implements SearchAdsInterface
+class GetKeywordLevelWithinAnAdGroupReports extends SearchAds
 {
     use HasHttpRequest;
 
