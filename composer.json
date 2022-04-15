@@ -1,0 +1,27 @@
+{
+    "name": "tomorrowxxy/apple-ads",
+    "description": "苹果搜索广告(Apple Ads) API SDK / Apple Search Ads. The API version is v4",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Tomorrowxxy",
+            "email": "tomorrowxxy@foxmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Tomorrowxxy\\AppleAds\\": "./src"
+        }
+    },
+    "require": {
+        "guzzlehttp/guzzle": "^7.4",
+        "firebase/php-jwt": "^6.0"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Tomorrowxxy\\AppleAds\\AppleAdsServiceProvider"
+            ]
+        }
+    }
+}
